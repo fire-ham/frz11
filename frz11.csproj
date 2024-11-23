@@ -1,13 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Dalamud.NET.Sdk/11.0.0">
 	<PropertyGroup>
-		<OutputType>Library</OutputType>
-		<TargetFramework>net7.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<PlatformTarget>x64</PlatformTarget>
 		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<DalamudInternal>true</DalamudInternal>
+		<UseWPF>false</UseWPF>
+		<UseWindowsForms>false</UseWindowsForms>
 	</PropertyGroup>
-
 	<ItemGroup>
-		<PackageReference Include="Dalamud" Version="11.*" />
+		<Content Include="dalamud-sources.txt" />
+		<Content Include="frz11.json" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
 	</ItemGroup>
 </Project>

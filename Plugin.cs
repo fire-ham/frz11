@@ -1,48 +1,53 @@
 using Dalamud.Game.Command;
-using Dalamud.IoC;
+using Dalamud.Logging;
 using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
 using System;
 using System.Threading;
 
 namespace FreezeGamePlugin
 {
-    public class Plugin : IDalamudPlugin
+    public sealed class Plugin : IDalamudPlugin
     {
         public string Name => "Freeze Game Plugin";
 
         private const string CommandName = "/freezegame";
 
-        [PluginService]
-        public static DalamudPluginInterface PluginInterface { get; private set; } = null!;
+        private readonly ICommandManager commandManager;
 
-        [PluginService]
-        public static CommandManager CommandManager { get; private set; } = null!;
-
-        public void Initialize()
+        public Plugin(ICommandManager commandManager)
         {
-            CommandManager.AddHandler(CommandName, new CommandInfo(OnFreezeGame)
+            this.commandManager = commandManager;
+
+            // register command
+            this.commandManager.AddHandler(CommandName, new CommandInfo(OnFreezeGame)
             {
                 HelpMessage = "Freezes the game for the amount of time specified in seconds, up to 60. Defaults to 0.5."
             });
+
+           // PluginLog.Information("Plugin initialized successfully.");
         }
 
         public void Dispose()
         {
-            CommandManager.RemoveHandler(CommandName);
+            //unregister commandr
+            this.commandManager.RemoveHandler(CommandName);
+
+           // PluginLog.Information("Plugin disposed successfully.");
         }
 
         private void OnFreezeGame(string command, string args)
         {
             if (!float.TryParse(args, out var time))
-            {
                 time = 0.5f;
-            }
 
             time = Math.Min(time, 60);
 
-            PluginLog.Log($"Freezing game for {time} seconds.");
-            Thread.Sleep((int)(time * 1000)); // Simulate freeze
-            PluginLog.Log("Game resumed.");
+           // PluginLog.Information($"{Name}: Freezing game for {time} seconds.");
+
+            Thread.Sleep((int)(time * 1000)); // Simulate game freeze
+
+           // PluginLog.Information("Game resumed.");
         }
     }
 }

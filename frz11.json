@@ -4,7 +4,7 @@
   "Punchline": "Freezes the game for a specified duration.",
   "Description": "A simple plugin that freezes the game for the specified amount of time.",
   "AssemblyVersion": "0.1",
-  "RepoUrl": "https://github.com/fire-ham/frz11",
+  "RepoUrl": "https://github.com/fire-ham/ooblugin-freeze",
   "ApplicableVersion": "any",
   "Tags": [ "Utility", "Debug" ],
   "CategoryTags": [ "Utility" ]
